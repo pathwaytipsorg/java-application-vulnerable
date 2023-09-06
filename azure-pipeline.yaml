@@ -1,0 +1,14 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: |
+    mvn clean package
+  displayName: "Building Azure DevOps App"
+
+- script: |
+    mvn clean test
+  displayName: "Testing Azure DevOps App"
