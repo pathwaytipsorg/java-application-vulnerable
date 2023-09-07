@@ -6,6 +6,10 @@ pool:
 
 steps:
 - script: |
+    echo "This is a demo YAML file for DevSecOps Pipeline"
+  displayName: "Print Console Text for Demo"
+  
+- script: |
     mvn clean package
   displayName: "Building Azure DevOps App"
 
