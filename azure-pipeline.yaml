@@ -4,6 +4,11 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+- group: "SECURE_TOKENS"
+- name: sonar_token
+  value: $[variables.SONARTOKEN]
+
 steps:
 - script: |
     echo "This is a demo YAML file for DevSecOps Pipeline"
@@ -18,11 +23,11 @@ steps:
   displayName: "Testing Azure DevOps App"
 
 - script: |
-    mvn clean verify sonar:sonar -Dsonar.host.url=https://sonarcloud.io/ -Dsonar.organization=pathwaytips -Dsonar.projectKey=pathwaytips_javaproj -Dsonar.token=85c46ff8f7c6b626b6d27ca0c679871fc3e0832b
+    mvn clean verify sonar:sonar -Dsonar.host.url=https://sonarcloud.io/ -Dsonar.organization=pathwaytips -Dsonar.projectKey=pathwaytips_javaproj -Dsonar.token=$(sonar_token)
   displayName: "Integrate SAST using SonarCloud in Azure DevOps DevSecOps Pipeline"
 
 - script: |
-    mvn verify package sonar:sonar -Dsonar.host.url=https://sonarcloud.io/ -Dsonar.organization=pathwaytips -Dsonar.projectKey=pathwaytips_javaproj -Dsonar.token=85c46ff8f7c6b626b6d27ca0c679871fc3e0832b
+    mvn verify package sonar:sonar -Dsonar.host.url=https://sonarcloud.io/ -Dsonar.organization=pathwaytips -Dsonar.projectKey=pathwaytips_javaproj -Dsonar.token=$(sonar_token)
   displayName: "Integrate SAST using SonarCloud to populate code coverage in Azure DevOps DevSecOps Pipeline"
   
 - script: |
